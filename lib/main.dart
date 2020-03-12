@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_lsystem/pages/tree.dart';
+
+import 'pages/tree.dart';
+import 'pages/triangle.dart';
 
 void main() => runApp(MyApp());
 
@@ -34,12 +36,14 @@ class _Item {
 
 class _MyHomePageState extends State<MyHomePage> {
   var _index = 0;
-  var _items = <_Item>[
-    _Item('Tree', TreePage()),
-  ];
 
   @override
   Widget build(BuildContext context) {
+    var _items = <_Item>[
+      _Item('Tree', TreePage()),
+      _Item('Sierpinski Triangle', Triangle()),
+    ];
+
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
       body: ClipRect(
@@ -52,7 +56,10 @@ class _MyHomePageState extends State<MyHomePage> {
         itemBuilder: (widget, index) {
           final item = _items[index];
           return ListTile(
-              onTap: () => setState(() => _index = index),
+              onTap: () {
+                setState(() => _index = index);
+                Navigator.of(context).pop();
+              },
               title: Text(item.title));
         },
         itemCount: _items.length,
