@@ -8,8 +8,24 @@ class Triangle extends StatefulWidget {
   _TriangleState createState() => _TriangleState();
 }
 
-class _TriangleState extends State<Triangle> {
+class _TriangleState extends State<Triangle>
+    with SingleTickerProviderStateMixin {
+  AnimationController _controller;
   var _width = 10.0;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: Duration(seconds: 600));
+    _controller.repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,20 +50,29 @@ class _TriangleState extends State<Triangle> {
       Left((_) => 90.0),
       RunMacro('tri', (_) => {'l': _width}),
     ];
+
     return Container(
       child: Column(
         children: <Widget>[
-          TurtleView(
-            commands: commands,
-            child: Container(
-              height: MediaQuery.of(context).size.height - 200,
-            ),
-          ),
+          AnimatedBuilder(
+
+              animation: _controller,
+              builder: (context, snapshot) {
+                return Transform.rotate(
+                  angle: 360 * _controller.value,
+                  child: TurtleView(
+                    commands: commands,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height - 200,
+                    ),
+                  ),
+                );
+              }),
           Container(
             width: 300,
             child: Slider(
               min: 10.0,
-              max: 400.0,
+              max: 500.0,
               value: _width,
               onChanged: (value) => setState(() => _width = value),
             ),
