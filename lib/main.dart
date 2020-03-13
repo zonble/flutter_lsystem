@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'pages/snowflake.dart';
 import 'pages/tree.dart';
 import 'pages/triangle.dart';
 
@@ -42,6 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
     var _items = <_Item>[
       _Item('Tree', TreePage()),
       _Item('Sierpinski Triangle', Triangle()),
+      _Item('Snowflake', Snowflake()),
     ];
 
     return Scaffold(

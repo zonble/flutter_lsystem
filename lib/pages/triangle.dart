@@ -51,34 +51,31 @@ class _TriangleState extends State<Triangle>
       RunMacro('tri', (_) => {'l': _width}),
     ];
 
-    return Container(
-      child: Column(
-        children: <Widget>[
-          AnimatedBuilder(
-
-              animation: _controller,
-              builder: (context, snapshot) {
-                return Transform.rotate(
-                  angle: 360 * _controller.value,
-                  child: TurtleView(
-                    commands: commands,
-                    child: Container(
-                      height: MediaQuery.of(context).size.height - 200,
-                    ),
+    return Column(
+      children: <Widget>[
+        AnimatedBuilder(
+            animation: _controller,
+            builder: (context, snapshot) {
+              return Transform.rotate(
+                angle: 360 * _controller.value,
+                child: TurtleView(
+                  commands: commands,
+                  child: Container(
+                    height: MediaQuery.of(context).size.height - 200,
                   ),
-                );
-              }),
-          Container(
-            width: 300,
-            child: Slider(
-              min: 10.0,
-              max: 500.0,
-              value: _width,
-              onChanged: (value) => setState(() => _width = value),
-            ),
+                ),
+              );
+            }),
+        Container(
+          width: 300,
+          child: Slider(
+            min: 10.0,
+            max: 500.0,
+            value: _width,
+            onChanged: (value) => setState(() => _width = value),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
