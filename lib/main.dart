@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'pages/arrow_curve.dart';
 import 'pages/snowflake.dart';
 import 'pages/tree.dart';
 import 'pages/triangle.dart';
@@ -11,9 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter L-System',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: MyHomePage(title: 'Flutter L-System'),
     );
   }
@@ -42,7 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     var _items = <_Item>[
       _Item('Tree', TreePage()),
-      _Item('Sierpinski Triangle', Triangle()),
+      _Item('Sierpiński Triangle', Triangle()),
+      _Item('Sierpiński Arrow Curve', ArrowCurve()),
       _Item('Snowflake', Snowflake()),
     ];
 
@@ -62,6 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 setState(() => _index = index);
                 Navigator.of(context).pop();
               },
+              trailing: index == _index ? Icon(Icons.check) : null,
               title: Text(item.title));
         },
         itemCount: _items.length,
