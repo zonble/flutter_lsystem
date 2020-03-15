@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'pages/arrow_curve.dart';
+import 'pages/cantor_set_page.dart';
 import 'pages/snowflake.dart';
 import 'pages/tree.dart';
 import 'pages/triangle.dart';
@@ -41,6 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     var _items = <_Item>[
       _Item('Tree', TreePage()),
+      _Item('Cantor Set', CantorSetPage()),
       _Item('Sierpiński Triangle', TrianglePage()),
       _Item('Sierpiński Arrow Curve', ArrowCurvePage()),
       _Item('Snowflake', Snowflake()),
