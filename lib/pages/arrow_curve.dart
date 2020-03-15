@@ -3,14 +3,14 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_turtle/flutter_turtle.dart';
 
-class ArrowCurve extends StatefulWidget {
-  ArrowCurve({Key key}) : super(key: key);
+class ArrowCurvePage extends StatefulWidget {
+  ArrowCurvePage({Key key}) : super(key: key);
 
   @override
-  _ArrowCurveState createState() => _ArrowCurveState();
+  _ArrowCurvePageState createState() => _ArrowCurvePageState();
 }
 
-class _ArrowCurveState extends State<ArrowCurve>
+class _ArrowCurvePageState extends State<ArrowCurvePage>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
   var _count = 3;
@@ -37,7 +37,7 @@ class _ArrowCurveState extends State<ArrowCurve>
     var commands = [
       SetMacro('a', [
         IfElse((_) => _['c'] == 1, [
-          Forward((_) => 10)
+          Forward((_) => 5)
         ], [
           RunMacro('b', (_) => {'c': _['c'] - 1}, preserveState: false),
           Right((_) => 60.0),
@@ -48,7 +48,7 @@ class _ArrowCurveState extends State<ArrowCurve>
       ]),
       SetMacro('b', [
         IfElse((_) => _['c'] == 1, [
-          Forward((_) => 10)
+          Forward((_) => 5)
         ], [
           RunMacro('a', (_) => {'c': _['c'] - 1}, preserveState: false),
           Left((_) => 60.0),
@@ -57,7 +57,7 @@ class _ArrowCurveState extends State<ArrowCurve>
           RunMacro('a', (_) => {'c': _['c'] - 1}, preserveState: false),
         ])
       ]),
-      Back((_) => pow(2, _count - 2) * 10.0),
+      Back((_) => pow(2, _count - 2) * 5.0),
       Left((_) => 90.0),
       Forward((_) => _controller.value * 10 * (_count % 2 != 0 ? 1 : -1)),
       Right((_) => 90.0),

@@ -41,8 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     var _items = <_Item>[
       _Item('Tree', TreePage()),
-      _Item('Sierpiński Triangle', Triangle()),
-      _Item('Sierpiński Arrow Curve', ArrowCurve()),
+      _Item('Sierpiński Triangle', TrianglePage()),
+      _Item('Sierpiński Arrow Curve', ArrowCurvePage()),
       _Item('Snowflake', Snowflake()),
     ];
 
@@ -57,13 +57,17 @@ class _MyHomePageState extends State<MyHomePage> {
           child: ListView.builder(
         itemBuilder: (widget, index) {
           final item = _items[index];
+          final isCurrent = index == _index;
           return ListTile(
               onTap: () {
                 setState(() => _index = index);
                 Navigator.of(context).pop();
               },
-              trailing: index == _index ? Icon(Icons.check) : null,
-              title: Text(item.title));
+              trailing: isCurrent ? Icon(Icons.check) : null,
+              title: Text(item.title,
+                  style: TextStyle(
+                    fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal,
+                  )));
         },
         itemCount: _items.length,
       )),

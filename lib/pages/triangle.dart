@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_turtle/flutter_turtle.dart';
 
-class Triangle extends StatefulWidget {
-  Triangle({Key key}) : super(key: key);
+class TrianglePage extends StatefulWidget {
+  TrianglePage({Key key}) : super(key: key);
 
   @override
-  _TriangleState createState() => _TriangleState();
+  _TrianglePageState createState() => _TrianglePageState();
 }
 
-class _TriangleState extends State<Triangle>
+class _TrianglePageState extends State<TrianglePage>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
   var _width = 10.0;
@@ -70,7 +70,7 @@ class _TriangleState extends State<Triangle>
           width: 300,
           child: Slider(
             min: 10.0,
-            max: 500.0,
+            max: 800.0,
             value: _width,
             onChanged: (value) => setState(() => _width = value),
           ),
