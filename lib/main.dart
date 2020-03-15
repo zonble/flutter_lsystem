@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'pages/about_page.dart';
 import 'pages/arrow_curve.dart';
 import 'pages/cantor_set_page.dart';
 import 'pages/snowflake.dart';
@@ -36,11 +37,12 @@ class _Item {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var _index = 0;
+  var _index = 1;
 
   @override
   Widget build(BuildContext context) {
     var _items = <_Item>[
+      _Item('About Flutter L-System', AboutPage()),
       _Item('Tree', TreePage()),
       _Item('Cantor Set', CantorSetPage()),
       _Item('Sierpiński Triangle', TrianglePage()),
