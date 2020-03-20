@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'pages/about_page.dart';
 import 'pages/arrow_curve.dart';
 import 'pages/cantor_set_page.dart';
-import 'pages/snowflake.dart';
-import 'pages/tree.dart';
-import 'pages/triangle.dart';
+import 'pages/hexagon_page.dart';
+import 'pages/snowflake_page.dart';
+import 'pages/tree_page.dart';
+import 'pages/triangle_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -43,6 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     var _items = <_Item>[
       _Item('About Flutter L-System', AboutPage()),
+      _Item('Circles', HexagonPage()),
       _Item('Tree', TreePage()),
       _Item('Cantor Set', CantorSetPage()),
       _Item('Sierpiński Triangle', TrianglePage()),
