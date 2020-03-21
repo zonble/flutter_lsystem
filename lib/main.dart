@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _Item('Sierpiński Triangle', TrianglePage()),
       _Item('Sierpiński Arrow Curve', ArrowCurvePage()),
       _Item('Snowflake', Snowflake()),
-      _Item('Circles', HexagonPage()),
+      _Item('Hexagons', HexagonPage()),
     ];
 
     return Scaffold(
