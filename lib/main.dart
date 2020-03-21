@@ -44,12 +44,12 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     var _items = <_Item>[
       _Item('About Flutter L-System', AboutPage()),
-      _Item('Circles', HexagonPage()),
       _Item('Tree', TreePage()),
       _Item('Cantor Set', CantorSetPage()),
       _Item('Sierpiński Triangle', TrianglePage()),
       _Item('Sierpiński Arrow Curve', ArrowCurvePage()),
       _Item('Snowflake', Snowflake()),
+      _Item('Circles', HexagonPage()),
     ];
 
     return Scaffold(
