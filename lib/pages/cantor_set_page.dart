@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_turtle/flutter_turtle.dart';
 
 class CantorSetPage extends StatefulWidget {
-  CantorSetPage({Key key}) : super(key: key);
+  CantorSetPage({Key? key}) : super(key: key);
 
   @override
   _CantorSetPageState createState() => _CantorSetPageState();
@@ -43,8 +43,10 @@ class _CantorSetPageState extends State<CantorSetPage> {
         SetStrokeWidth((_) => 6),
         RunMacro(
             'line',
-            (_) =>
-                {'c': _[repcount], 'l': MediaQuery.of(context).size.width - 40})
+            (_) => {
+                  'c': _[repcount],
+                  'l': MediaQuery.of(context).size.width - 40,
+                })
       ]),
     ];
 
@@ -52,9 +54,7 @@ class _CantorSetPageState extends State<CantorSetPage> {
       children: <Widget>[
         TurtleView(
           commands: commands,
-          child: Container(
-            height: MediaQuery.of(context).size.height - 200,
-          ),
+          child: Container(height: MediaQuery.of(context).size.height - 200),
         ),
         Container(
             width: 300,

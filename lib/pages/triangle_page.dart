@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_turtle/flutter_turtle.dart';
 
 class TrianglePage extends StatefulWidget {
-  TrianglePage({Key key}) : super(key: key);
+  TrianglePage({Key? key}) : super(key: key);
 
   @override
   _TrianglePageState createState() => _TrianglePageState();
@@ -10,7 +10,7 @@ class TrianglePage extends StatefulWidget {
 
 class _TrianglePageState extends State<TrianglePage>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  AnimationController? _controller;
   var _width = 10.0;
 
   @override
@@ -18,12 +18,12 @@ class _TrianglePageState extends State<TrianglePage>
     super.initState();
     _controller =
         AnimationController(vsync: this, duration: Duration(seconds: 600));
-    _controller.repeat();
+    _controller?.repeat();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 
@@ -51,31 +51,26 @@ class _TrianglePageState extends State<TrianglePage>
       RunMacro('tri', (_) => {'l': _width}),
     ];
 
-    return Column(
-      children: <Widget>[
-        AnimatedBuilder(
-            animation: _controller,
-            builder: (context, snapshot) {
-              return Transform.rotate(
-                angle: 360 * _controller.value,
+    return Column(children: <Widget>[
+      AnimatedBuilder(
+          animation: _controller!,
+          builder: (context, snapshot) {
+            return Transform.rotate(
+                angle: 360 * (_controller?.value ?? 0),
                 child: TurtleView(
-                  commands: commands,
-                  child: Container(
-                    height: MediaQuery.of(context).size.height - 200,
-                  ),
-                ),
-              );
-            }),
-        Container(
+                    commands: commands,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height - 200,
+                    )));
+          }),
+      Container(
           width: 300,
           child: Slider(
             min: 10.0,
             max: 800.0,
             value: _width,
             onChanged: (value) => setState(() => _width = value),
-          ),
-        ),
-      ],
-    );
+          ))
+    ]);
   }
 }

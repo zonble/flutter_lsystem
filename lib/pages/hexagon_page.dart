@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_turtle/flutter_turtle.dart';
 
 class HexagonPage extends StatefulWidget {
-  HexagonPage({Key key}) : super(key: key);
+  HexagonPage({Key? key}) : super(key: key);
 
   @override
   _HexagonPageState createState() => _HexagonPageState();
@@ -10,7 +10,7 @@ class HexagonPage extends StatefulWidget {
 
 class _HexagonPageState extends State<HexagonPage>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  AnimationController? _controller;
   var _width = 10.0;
 
   @override
@@ -18,12 +18,12 @@ class _HexagonPageState extends State<HexagonPage>
     super.initState();
     _controller =
         AnimationController(vsync: this, duration: Duration(seconds: 600));
-    _controller.repeat(period: Duration(seconds: 600));
+    _controller?.repeat(period: Duration(seconds: 600));
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 
@@ -57,10 +57,10 @@ class _HexagonPageState extends State<HexagonPage>
     return Column(
       children: <Widget>[
         AnimatedBuilder(
-            animation: _controller,
+            animation: _controller!,
             builder: (context, snapshot) {
               return Transform.rotate(
-                angle: 360 * _controller.value,
+                angle: 360 * (_controller?.value ?? 0),
                 child: TurtleView(
                   commands: commands,
                   child: Container(

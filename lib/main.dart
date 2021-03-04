@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -53,30 +53,30 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
-      body: ClipRect(
-        child: Center(
-          child: _items[_index].widget,
+        appBar: AppBar(title: Text(widget.title)),
+        body: ClipRect(
+          child: Center(
+            child: _items[_index].widget,
+          ),
         ),
-      ),
-      drawer: Drawer(
-          child: ListView.builder(
-        itemBuilder: (widget, index) {
-          final item = _items[index];
-          final isCurrent = index == _index;
-          return ListTile(
-              onTap: () {
-                setState(() => _index = index);
-                Navigator.of(context).pop();
-              },
-              trailing: isCurrent ? Icon(Icons.check) : null,
-              title: Text(item.title,
-                  style: TextStyle(
-                    fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal,
-                  )));
-        },
-        itemCount: _items.length,
-      )),
-    );
+        drawer: Drawer(
+            child: ListView.builder(
+          itemBuilder: (widget, index) {
+            final item = _items[index];
+            final isCurrent = index == _index;
+            return ListTile(
+                onTap: () {
+                  setState(() => _index = index);
+                  Navigator.of(context).pop();
+                },
+                trailing: isCurrent ? Icon(Icons.check) : null,
+                title: Text(item.title,
+                    style: TextStyle(
+                      fontWeight:
+                          isCurrent ? FontWeight.bold : FontWeight.normal,
+                    )));
+          },
+          itemCount: _items.length,
+        )));
   }
 }

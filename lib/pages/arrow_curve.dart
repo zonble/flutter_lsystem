@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_turtle/flutter_turtle.dart';
 
 class ArrowCurvePage extends StatefulWidget {
-  ArrowCurvePage({Key key}) : super(key: key);
+  ArrowCurvePage({Key? key}) : super(key: key);
 
   @override
   _ArrowCurvePageState createState() => _ArrowCurvePageState();
@@ -12,7 +12,7 @@ class ArrowCurvePage extends StatefulWidget {
 
 class _ArrowCurvePageState extends State<ArrowCurvePage>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  AnimationController? _controller;
   var _count = 3;
 
   @override
@@ -23,12 +23,12 @@ class _ArrowCurvePageState extends State<ArrowCurvePage>
         lowerBound: 0.5,
         upperBound: 1.0,
         duration: Duration(seconds: 2));
-    _controller.repeat(reverse: true);
+    _controller?.repeat(reverse: true);
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 
@@ -59,13 +59,15 @@ class _ArrowCurvePageState extends State<ArrowCurvePage>
       ]),
       Back((_) => pow(2, _count - 2) * 5.0),
       Left((_) => 90.0),
-      Forward((_) => _controller.value * 10 * (_count % 2 != 0 ? 1 : -1)),
+      Forward(
+          (_) => (_controller?.value ?? 0) * 10 * (_count % 2 != 0 ? 1 : -1)),
       Right((_) => 90.0),
       PenDown(),
       RunMacro('a', (_) => {'c': _count}),
       PenUp(),
       Right((_) => 90.0),
-      Forward((_) => _controller.value * 10 * (_count % 2 != 0 ? 1 : -1)),
+      Forward(
+          (_) => (_controller?.value ?? 0) * 10 * (_count % 2 != 0 ? 1 : -1)),
       Left((_) => 90.0),
       PenDown(),
       RunMacro('b', (_) => {'c': _count}),
@@ -74,7 +76,7 @@ class _ArrowCurvePageState extends State<ArrowCurvePage>
     return Column(
       children: <Widget>[
         AnimatedBuilder(
-            animation: _controller,
+            animation: _controller!,
             builder: (context, snapshot) => TurtleView(
                   commands: commands,
                   child: Container(
