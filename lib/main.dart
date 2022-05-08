@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'pages/about_page.dart';
 import 'pages/arrow_curve.dart';
@@ -10,19 +11,70 @@ import 'pages/triangle_page.dart';
 
 void main() => runApp(MyApp());
 
+class FadeTransitionPage extends CustomTransitionPage<void> {
+  FadeTransitionPage({
+    required LocalKey key,
+    required Widget child,
+  }) : super(
+            key: key,
+            transitionsBuilder: (c, animation, a2, child) => FadeTransition(
+                  opacity: animation.drive(_curveTween),
+                  child: child,
+                ),
+            child: child);
+
+  static final _curveTween = CurveTween(curve: Curves.easeIn);
+}
+
+final _items = <_Item>[
+  _Item('About Flutter L-System', '/about', () => AboutPage()),
+  _Item('Tree', '/tree', () => TreePage()),
+  _Item('Cantor Set', '/cantor_set', () => CantorSetPage()),
+  _Item('Sierpiński Triangle', '/triangle', () => TrianglePage()),
+  _Item('Sierpiński Arrow Curve', '/arrow_curve', () => ArrowCurvePage()),
+  _Item('Snowflake', '/snowflake', () => Snowflake()),
+  _Item('Hexagons', '/hexagons', () => HexagonPage()),
+];
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    FadeTransitionPage h(GoRouterState state, Widget child) {
+      // Page(c);
+      return FadeTransitionPage(
+          key: state.pageKey,
+          child: MyHomePage(title: 'Flutter L-System', child: child));
+    }
+
+    final _router = GoRouter(
+      routes: [
+        GoRoute(
+          path: '/',
+          pageBuilder: (context, state) => h(state, TreePage()),
+        ),
+        ..._items.map((item) => GoRoute(
+            path: item.path,
+            pageBuilder: (context, state) => h(state, item.widget()))),
+      ],
+    );
+
+    return MaterialApp.router(
       title: 'Flutter L-System',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: MyHomePage(title: 'Flutter L-System'),
+      routeInformationParser: _router.routeInformationParser,
+      routerDelegate: _router.routerDelegate,
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  final Widget child;
+
+  MyHomePage({
+    Key? key,
+    required this.title,
+    required this.child,
+  }) : super(key: key);
 
   final String title;
 
@@ -32,51 +84,36 @@ class MyHomePage extends StatefulWidget {
 
 class _Item {
   String title;
-  Widget widget;
-
-  _Item(this.title, this.widget);
+  String path;
+  Widget Function() widget;
+  _Item(this.title, this.path, this.widget);
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var _index = 1;
-
   @override
   Widget build(BuildContext context) {
-    var _items = <_Item>[
-      _Item('About Flutter L-System', AboutPage()),
-      _Item('Tree', TreePage()),
-      _Item('Cantor Set', CantorSetPage()),
-      _Item('Sierpiński Triangle', TrianglePage()),
-      _Item('Sierpiński Arrow Curve', ArrowCurvePage()),
-      _Item('Snowflake', Snowflake()),
-      _Item('Hexagons', HexagonPage()),
-    ];
+    var drawer = Drawer(
+        child: ListView.builder(
+      itemBuilder: (widget, index) {
+        final item = _items[index];
+        return ListTile(
+            onTap: () {
+              Navigator.of(context).pop();
+              final path = item.path;
+              context.go(path);
+            },
+            title: Text(item.title, style: TextStyle()));
+      },
+      itemCount: _items.length,
+    ));
 
     return Scaffold(
         appBar: AppBar(title: Text(widget.title)),
         body: ClipRect(
           child: Center(
-            child: _items[_index].widget,
+            child: widget.child,
           ),
         ),
-        drawer: Drawer(
-            child: ListView.builder(
-          itemBuilder: (widget, index) {
-            final item = _items[index];
-            final isCurrent = index == _index;
-            return ListTile(
-                onTap: () {
-                  setState(() => _index = index);
-                  Navigator.of(context).pop();
-                },
-                trailing: isCurrent ? Icon(Icons.check) : null,
-                title: Text(item.title,
-                    style: TextStyle(
-                      fontWeight:
-                          isCurrent ? FontWeight.bold : FontWeight.normal,
-                    )));
-          },
-          itemCount: _items.length,
-        )));
+        drawer: drawer);
   }
 }
