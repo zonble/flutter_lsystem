@@ -2,26 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_turtle/flutter_turtle.dart';
 
 class Snowflake extends StatefulWidget {
+  const Snowflake({super.key});
+
   @override
-  _SnowflakeState createState() => _SnowflakeState();
+  State<Snowflake> createState() => _SnowflakeState();
 }
 
 class _SnowflakeState extends State<Snowflake>
     with SingleTickerProviderStateMixin {
-  AnimationController? _controller;
+  late AnimationController _controller;
   var _width = 20.0;
 
   @override
   void initState() {
     super.initState();
     _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 2));
-    _controller?.repeat(reverse: true);
+        AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    _controller.repeat(reverse: true);
   }
 
   @override
   void dispose() {
-    _controller?.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -66,14 +68,14 @@ class _SnowflakeState extends State<Snowflake>
           animation: _controller!,
           builder: (context, snapshot) {
             return Transform.scale(
-                scale: 1.0 + (_controller?.value ?? 0) * 0.2,
+                scale: 1.0 + (_controller.value ?? 0) * 0.2,
                 child: TurtleView(
                     commands: commands,
                     child: Container(
                       height: MediaQuery.of(context).size.height - 200,
                     )));
           }),
-      Container(
+      SizedBox(
           width: 300,
           child: Slider(
             min: 20.0,

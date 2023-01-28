@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_turtle/flutter_turtle.dart';
 
 class CantorSetPage extends StatefulWidget {
-  CantorSetPage({Key? key}) : super(key: key);
+  const CantorSetPage({super.key});
 
   @override
-  _CantorSetPageState createState() => _CantorSetPageState();
+  State<CantorSetPage> createState() => _CantorSetPageState();
 }
 
 class _CantorSetPageState extends State<CantorSetPage> {
@@ -56,7 +56,7 @@ class _CantorSetPageState extends State<CantorSetPage> {
           commands: commands,
           child: Container(height: MediaQuery.of(context).size.height - 200),
         ),
-        Container(
+        SizedBox(
             width: 300,
             child: Slider(
               min: 1,

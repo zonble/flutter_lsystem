@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_turtle/flutter_turtle.dart';
 
 class ArrowCurvePage extends StatefulWidget {
-  ArrowCurvePage({Key? key}) : super(key: key);
+  const ArrowCurvePage({super.key});
 
   @override
-  _ArrowCurvePageState createState() => _ArrowCurvePageState();
+  State<ArrowCurvePage> createState() => _ArrowCurvePageState();
 }
 
 class _ArrowCurvePageState extends State<ArrowCurvePage>
     with SingleTickerProviderStateMixin {
-  AnimationController? _controller;
+  late AnimationController _controller;
   var _count = 3;
 
   @override
@@ -22,13 +22,13 @@ class _ArrowCurvePageState extends State<ArrowCurvePage>
         vsync: this,
         lowerBound: 0.5,
         upperBound: 1.0,
-        duration: Duration(seconds: 2));
-    _controller?.repeat(reverse: true);
+        duration: const Duration(seconds: 2));
+    _controller.repeat(reverse: true);
   }
 
   @override
   void dispose() {
-    _controller?.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -60,39 +60,35 @@ class _ArrowCurvePageState extends State<ArrowCurvePage>
       Back((_) => pow(2, _count - 2) * 5.0),
       Left((_) => 90.0),
       Forward(
-          (_) => (_controller?.value ?? 0) * 10 * (_count % 2 != 0 ? 1 : -1)),
+          (_) => (_controller.value ?? 0) * 10 * (_count % 2 != 0 ? 1 : -1)),
       Right((_) => 90.0),
       PenDown(),
       RunMacro('a', (_) => {'c': _count}),
       PenUp(),
       Right((_) => 90.0),
       Forward(
-          (_) => (_controller?.value ?? 0) * 10 * (_count % 2 != 0 ? 1 : -1)),
+          (_) => (_controller.value ?? 0) * 10 * (_count % 2 != 0 ? 1 : -1)),
       Left((_) => 90.0),
       PenDown(),
       RunMacro('b', (_) => {'c': _count}),
     ];
 
-    return Column(
-      children: <Widget>[
-        AnimatedBuilder(
-            animation: _controller!,
-            builder: (context, snapshot) => TurtleView(
-                  commands: commands,
-                  child: Container(
-                    height: MediaQuery.of(context).size.height - 200,
-                  ),
-                )),
-        Container(
+    return Column(children: <Widget>[
+      AnimatedBuilder(
+          animation: _controller!,
+          builder: (context, snapshot) => TurtleView(
+              commands: commands,
+              child: Container(
+                height: MediaQuery.of(context).size.height - 200,
+              ))),
+      SizedBox(
           width: 300,
           child: Slider(
             min: 3,
             max: 8,
             value: _count.toDouble(),
             onChanged: (value) => setState(() => _count = value.toInt()),
-          ),
-        ),
-      ],
-    );
+          ))
+    ]);
   }
 }

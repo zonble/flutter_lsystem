@@ -27,16 +27,18 @@ class FadeTransitionPage extends CustomTransitionPage<void> {
 }
 
 final _items = <_Item>[
-  _Item('About Flutter L-System', '/about', () => AboutPage()),
-  _Item('Tree', '/tree', () => TreePage()),
-  _Item('Cantor Set', '/cantor_set', () => CantorSetPage()),
-  _Item('Sierpiński Triangle', '/triangle', () => TrianglePage()),
-  _Item('Sierpiński Arrow Curve', '/arrow_curve', () => ArrowCurvePage()),
-  _Item('Snowflake', '/snowflake', () => Snowflake()),
-  _Item('Hexagons', '/hexagons', () => HexagonPage()),
+  _Item('About Flutter L-System', '/about', () => const AboutPage()),
+  _Item('Tree', '/tree', () => const TreePage()),
+  _Item('Cantor Set', '/cantor_set', () => const CantorSetPage()),
+  _Item('Sierpiński Triangle', '/triangle', () => const TrianglePage()),
+  _Item('Sierpiński Arrow Curve', '/arrow_curve', () => const ArrowCurvePage()),
+  _Item('Snowflake', '/snowflake', () => const Snowflake()),
+  _Item('Hexagons', '/hexagons', () => const HexagonPage()),
 ];
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     FadeTransitionPage h(GoRouterState state, Widget child) {
@@ -46,11 +48,11 @@ class MyApp extends StatelessWidget {
           child: MyHomePage(title: 'Flutter L-System', child: child));
     }
 
-    final _router = GoRouter(
+    final router = GoRouter(
       routes: [
         GoRoute(
           path: '/',
-          pageBuilder: (context, state) => h(state, TreePage()),
+          pageBuilder: (context, state) => h(state, const TreePage()),
         ),
         ..._items.map((item) => GoRoute(
             path: item.path,
@@ -61,8 +63,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'Flutter L-System',
       theme: ThemeData(primarySwatch: Colors.blue),
-      routeInformationParser: _router.routeInformationParser,
-      routerDelegate: _router.routerDelegate,
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
     );
   }
 }
@@ -70,16 +72,16 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   final Widget child;
 
-  MyHomePage({
-    Key? key,
+  const MyHomePage({
+    super.key,
     required this.title,
     required this.child,
-  }) : super(key: key);
+  });
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _Item {
@@ -102,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
               final path = item.path;
               context.go(path);
             },
-            title: Text(item.title, style: TextStyle()));
+            title: Text(item.title, style: const TextStyle()));
       },
       itemCount: _items.length,
     ));

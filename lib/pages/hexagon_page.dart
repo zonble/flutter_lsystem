@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_turtle/flutter_turtle.dart';
 
 class HexagonPage extends StatefulWidget {
-  HexagonPage({Key? key}) : super(key: key);
+  const HexagonPage({super.key});
 
   @override
-  _HexagonPageState createState() => _HexagonPageState();
+  State<HexagonPage> createState() => _HexagonPageState();
 }
 
 class _HexagonPageState extends State<HexagonPage>
@@ -16,9 +16,9 @@ class _HexagonPageState extends State<HexagonPage>
   @override
   void initState() {
     super.initState();
-    _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 600));
-    _controller?.repeat(period: Duration(seconds: 600));
+    _controller = AnimationController(
+        vsync: this, duration: const Duration(seconds: 600));
+    _controller?.repeat(period: const Duration(seconds: 600));
   }
 
   @override
@@ -54,31 +54,27 @@ class _HexagonPageState extends State<HexagonPage>
       RunMacro('tri', (_) => {'l': _width}),
     ];
 
-    return Column(
-      children: <Widget>[
-        AnimatedBuilder(
-            animation: _controller!,
-            builder: (context, snapshot) {
-              return Transform.rotate(
+    return Column(children: <Widget>[
+      AnimatedBuilder(
+          animation: _controller!,
+          builder: (context, snapshot) {
+            return Transform.rotate(
                 angle: 360 * (_controller?.value ?? 0),
                 child: TurtleView(
-                  commands: commands,
-                  child: Container(
-                    height: MediaQuery.of(context).size.height - 200,
-                  ),
-                ),
-              );
-            }),
-        Container(
-          width: 300,
-          child: Slider(
-            min: 10.0,
-            max: 500.0,
-            value: _width,
-            onChanged: (value) => setState(() => _width = value),
-          ),
+                    commands: commands,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height - 200,
+                    )));
+          }),
+      SizedBox(
+        width: 300,
+        child: Slider(
+          min: 10.0,
+          max: 500.0,
+          value: _width,
+          onChanged: (value) => setState(() => _width = value),
         ),
-      ],
-    );
+      ),
+    ]);
   }
 }

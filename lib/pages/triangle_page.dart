@@ -2,28 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_turtle/flutter_turtle.dart';
 
 class TrianglePage extends StatefulWidget {
-  TrianglePage({Key? key}) : super(key: key);
+  const TrianglePage({super.key});
 
   @override
-  _TrianglePageState createState() => _TrianglePageState();
+  State<TrianglePage> createState() => _TrianglePageState();
 }
 
 class _TrianglePageState extends State<TrianglePage>
     with SingleTickerProviderStateMixin {
-  AnimationController? _controller;
+  late AnimationController _controller;
   var _width = 10.0;
 
   @override
   void initState() {
     super.initState();
-    _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 600));
-    _controller?.repeat();
+    _controller = AnimationController(
+        vsync: this, duration: const Duration(seconds: 600));
+    _controller.repeat();
   }
 
   @override
   void dispose() {
-    _controller?.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -63,7 +63,7 @@ class _TrianglePageState extends State<TrianglePage>
                       height: MediaQuery.of(context).size.height - 200,
                     )));
           }),
-      Container(
+      SizedBox(
           width: 300,
           child: Slider(
             min: 10.0,
