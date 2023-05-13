@@ -9,7 +9,7 @@ import 'pages/snowflake_page.dart';
 import 'pages/tree_page.dart';
 import 'pages/triangle_page.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class FadeTransitionPage extends CustomTransitionPage<void> {
   FadeTransitionPage({
@@ -42,7 +42,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FadeTransitionPage h(GoRouterState state, Widget child) {
-      // Page(c);
       return FadeTransitionPage(
           key: state.pageKey,
           child: MyHomePage(title: 'Flutter L-System', child: child));
@@ -56,15 +55,18 @@ class MyApp extends StatelessWidget {
         ),
         ..._items.map((item) => GoRoute(
             path: item.path,
-            pageBuilder: (context, state) => h(state, item.widget()))),
+            pageBuilder: (context, state) {
+              return h(state, item.widget());
+            })),
       ],
     );
 
     return MaterialApp.router(
       title: 'Flutter L-System',
       theme: ThemeData(primarySwatch: Colors.blue),
-      routeInformationParser: router.routeInformationParser,
-      routerDelegate: router.routerDelegate,
+      routerConfig: router,
+      // routeInformationParser: router.routeInformationParser,
+      // routerDelegate: router.routerDelegate,
     );
   }
 }
@@ -88,10 +90,17 @@ class _Item {
   String title;
   String path;
   Widget Function() widget;
+
   _Item(this.title, this.path, this.widget);
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  @override
+  void didUpdateWidget(covariant MyHomePage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     var drawer = Drawer(
@@ -102,6 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onTap: () {
               Navigator.of(context).pop();
               final path = item.path;
+              print('path $path');
               context.go(path);
             },
             title: Text(item.title, style: const TextStyle()));

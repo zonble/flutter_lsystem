@@ -31,7 +31,7 @@ class _HexagonPageState extends State<HexagonPage>
   Widget build(BuildContext context) {
     var commands = <TurtleCommand>[
       SetMacro('tri', [
-        IfElse((_) => _['l'] < 30, [
+        IfElse((_) => _['l'] < 60, [
           Forward((_) => _['l'] / 2.0),
           Left((_) => 120.0),
           PenDown(),
