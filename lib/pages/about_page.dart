@@ -16,7 +16,7 @@ class AboutPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Text('About',
-                            style: Theme.of(context).textTheme.headline5),
+                            style: Theme.of(context).textTheme.titleSmall),
                       ),
                       const Padding(
                         padding: EdgeInsets.all(20.0),
