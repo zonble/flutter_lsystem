@@ -75,7 +75,7 @@ class _ArrowCurvePageState extends State<ArrowCurvePage>
 
     return Column(children: <Widget>[
       AnimatedBuilder(
-          animation: _controller!,
+          animation: _controller,
           builder: (context, snapshot) => TurtleView(
               commands: commands,
               child: Container(

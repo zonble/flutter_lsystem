@@ -83,7 +83,7 @@ class _TreePageState extends State<TreePage>
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
           AnimatedBuilder(
-              animation: controller!,
+              animation: controller,
               builder: (context, snapshot) => TurtleView(
                   commands: commands,
                   child: Container(

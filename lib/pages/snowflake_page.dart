@@ -65,7 +65,7 @@ class _SnowflakeState extends State<Snowflake>
 
     return Column(children: <Widget>[
       AnimatedBuilder(
-          animation: _controller!,
+          animation: _controller,
           builder: (context, snapshot) {
             return Transform.scale(
                 scale: 1.0 + (_controller.value ?? 0) * 0.2,

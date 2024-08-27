@@ -53,10 +53,10 @@ class _TrianglePageState extends State<TrianglePage>
 
     return Column(children: <Widget>[
       AnimatedBuilder(
-          animation: _controller!,
+          animation: _controller,
           builder: (context, snapshot) {
             return Transform.rotate(
-                angle: 360 * (_controller?.value ?? 0),
+                angle: 360 * (_controller.value ?? 0),
                 child: TurtleView(
                     commands: commands,
                     child: Container(
